@@ -1,32 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
-using Rock_Paper_Scissors.Models;
-using System.Diagnostics;
+using System;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Rock_Paper_Scissors.Controllers
+namespace Rock_Paper.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        [HttpPost]
+        public JsonResult Play(string choice)
         {
-            _logger = logger;
+            string[] choices = { "rock", "paper", "scissors" };
+            var random = new Random();
+            var serverChoice = choices[random.Next(0, 3)];
+            var result = "Tie";
+
+            if (choice == "rock" && serverChoice == "scissors" ||
+                choice == "paper" && serverChoice == "rock" ||
+                choice == "scissors" && serverChoice == "paper")
+            {
+                result = "You win!";
+            }
+            else if (serverChoice == "rock" && choice == "scissors" ||
+                    serverChoice == "paper" && choice == "rock" ||
+                    serverChoice == "scissors" && choice == "paper")
+            {
+                result = "Server wins!";
+            }
+
+            var jsonResult = new
+            {
+                userChoice = choice,
+                serverChoice = serverChoice,
+                message = result
+            };
+
+            return Json(jsonResult);
         }
 
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

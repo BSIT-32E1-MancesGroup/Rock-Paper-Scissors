@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Results";
+}
+
+<div class="container text-center">
+    @if (ViewBag.Message == "You Lose")
+    {
+        <h1 class="Message">@ViewBag.Message</h1>
+    }
+    else if(ViewBag.Message == "It's a DRAW!")
+    {
+        <h1 class="MessageGreen">@ViewBag.Message</h1>
+    }
+
+
+    <p>@ViewBag.Choices</p>
+</div>
+
+<div class="container text-center ResultButtons">
+    <table class="center">
+        <tr>
+            <td class="text-center">
+                <form asp-controller="COption" asp-action="Play">
+                    <button type="submit" class="btn btn-success">Play Again?</button>
+                </form>
+            </td>
+
+            <td class="text-center">
+                <form asp-controller="Home" asp-action="Index">
+                    <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

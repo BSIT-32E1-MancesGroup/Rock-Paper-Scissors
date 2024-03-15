@@ -21,7 +21,7 @@ namespace Rock_Paper_Scissors.Controllers
 
             ViewBag.Choices = "Player : " + playerChoice.Option.ToString() + "\nComputer :" + computerChoice.Option.ToString();
             ViewBag.Message = str;
-            return View("Result");
+            return View("Results");
         }
 
         public IActionResult CompVsComp()
@@ -31,7 +31,7 @@ namespace Rock_Paper_Scissors.Controllers
             string str = WinOrLose(computer1Choice, computer2Choice, false);
             ViewBag.Choices = "Computer 1 : " + computer1Choice.Option.ToString() + "\nComputer 2 : " + computer2Choice.Option.ToString();
             ViewBag.Message = str;
-            return View("Result");
+            return View("Results");
         }
         
         private int ComputerChoice()
